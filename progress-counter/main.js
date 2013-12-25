@@ -12,22 +12,22 @@ function addProgressCounter() {
 		if (spans[i].getElementsByClassName('counter'))
 			progresses.push(spans[i]);
 
-	// console.log(spans);
-	// console.log(progresses);
 	for (var i = 0; i < progresses.length; ++i) {
 		var upperBound = parseInt(progresses[i].innerHTML);
-		console.log(upperBound)
+		var duration = parseInt(progresses[i].getAttribute('data-duration'));
 		if (isNaN(upperBound)) continue;
-		showCounter(progresses[i], upperBound);
+		duration = isNaN(duration) ? 2300 : duration;
+		showCounter(progresses[i], upperBound, duration);
 	}
 };
 
-function showCounter(element, upperBound) {
+function showCounter(element, upperBound, duration) {
+	var interval = Math.round(duration / upperBound);
 	for (var i = 0; i <= upperBound; ++i) {
 		(function(i){
 			window.setTimeout(function(){
 				element.innerHTML = i;
-			}, i * 100);
+			}, i * interval);
 		}(i));
 	};
 };
